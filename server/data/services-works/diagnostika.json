@@ -1,0 +1,52 @@
+[
+  {
+    "id": "diagnostika-01",
+    "title": "Консультация + составление плана лечения",
+    "price": 500,
+    "oldPrice": null,
+    "note": null,
+    "order": 1,
+    "active": true,
+    "updatedAt": "2025-08-18T00:00:00.000Z"
+  },
+  {
+    "id": "diagnostika-02",
+    "title": "Компьютерная томограмма (3D исследование) — полная",
+    "price": 5000,
+    "oldPrice": null,
+    "note": null,
+    "order": 2,
+    "active": true,
+    "updatedAt": "2025-08-18T00:00:00.000Z"
+  },
+  {
+    "id": "diagnostika-03",
+    "title": "Компьютерная томограмма (3D исследование) — сегмент",
+    "price": 3000,
+    "oldPrice": null,
+    "note": null,
+    "order": 3,
+    "active": true,
+    "updatedAt": "2025-08-18T00:00:00.000Z"
+  },
+  {
+    "id": "diagnostika-04",
+    "title": "Прицельный снимок визиографом",
+    "price": 1000,
+    "oldPrice": null,
+    "note": null,
+    "order": 4,
+    "active": true,
+    "updatedAt": "2025-08-18T00:00:00.000Z"
+  },
+  {
+    "id": "diagnostika-05",
+    "title": "3D-сканирование полости рта аппаратом 3Shape (2 челюсти)",
+    "price": 5000,
+    "oldPrice": null,
+    "note": null,
+    "order": 5,
+    "active": true,
+    "updatedAt": "2025-08-18T00:00:00.000Z"
+  }
+]

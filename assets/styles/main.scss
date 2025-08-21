@@ -1,0 +1,6 @@
+html { scroll-behavior: smooth; }
+
+:root{
+  /* обновим это число после пункта 2 — сейчас ставлю под новый хедер */
+  --header-offset: calc(28rem + 96rem); /* top-pad + header height */
+}

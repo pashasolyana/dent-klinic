@@ -1,0 +1,7 @@
+[
+  { "id": "profilaktika-01", "title": "Профессиональная гигиена полости рта", "price": 6500, "oldPrice": null, "note": null, "order": 1, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "profilaktika-02", "title": "Реминерализующая терапия", "price": 500, "oldPrice": null, "note": null, "order": 2, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "profilaktika-03", "title": "Удаление камня ультразвуковым аппаратом (в области 1 зуба)", "price": 300, "oldPrice": null, "note": null, "order": 3, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "profilaktika-04", "title": "Изготовление защитной каппы", "price": 7000, "oldPrice": null, "note": null, "order": 4, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "profilaktika-05", "title": "Отбеливание ZOOM-4", "price": 35000, "oldPrice": null, "note": null, "order": 5, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" }
+]

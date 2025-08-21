@@ -1,0 +1,68 @@
+[
+  {
+    "id": "61ed2683-5cdf-4a88-8a78-a3d421cf18af",
+    "name": "Бронников Олег Николаевич",
+    "position": "Врач",
+    "description": "Врач",
+    "photo": "/uploads/2025/08/bronnikov_1755805976594_7ea8936f145a.webp",
+    "order": 1,
+    "visible": true,
+    "createdAt": "2025-08-21T19:52:59.303Z",
+    "updatedAt": "2025-08-21T19:52:59.303Z"
+  },
+  {
+    "id": "e619958b-f1e7-472d-95be-15978492088e",
+    "name": "Врач 1",
+    "position": "Врач",
+    "description": "Врач",
+    "photo": "/uploads/2025/08/vrach2_1755806104292_3be80599ed9f.webp",
+    "order": 2,
+    "visible": true,
+    "createdAt": "2025-08-21T19:55:07.502Z",
+    "updatedAt": "2025-08-21T19:55:07.502Z"
+  },
+  {
+    "id": "a3d2ed2b-bc08-42c6-8bd8-0f933ab4ad35",
+    "name": "Врач 2",
+    "position": "Врач 2",
+    "description": "Врач 2",
+    "photo": "/uploads/2025/08/vrach3_1755806128519_c7466675b80a.webp",
+    "order": 3,
+    "visible": true,
+    "createdAt": "2025-08-21T19:55:29.835Z",
+    "updatedAt": "2025-08-21T19:55:29.835Z"
+  },
+  {
+    "id": "d725845a-914a-4912-92ea-f8be10d39976",
+    "name": "Врач 4",
+    "position": "Врач 4",
+    "description": "Врач 4",
+    "photo": "/uploads/2025/08/vrach4_1755806154190_c9261aab4b3d.webp",
+    "order": 4,
+    "visible": true,
+    "createdAt": "2025-08-21T19:55:55.934Z",
+    "updatedAt": "2025-08-21T19:55:55.934Z"
+  },
+  {
+    "id": "be372ad8-4870-47f9-b563-8de513bcf2ca",
+    "name": "Врач 5",
+    "position": "Врач 5",
+    "description": "Врач 5",
+    "photo": "/uploads/2025/08/vrach5_1755806183652_58903e1cfbb9.jpg",
+    "order": 5,
+    "visible": true,
+    "createdAt": "2025-08-21T19:56:24.815Z",
+    "updatedAt": "2025-08-21T19:56:24.815Z"
+  },
+  {
+    "id": "53ecc252-d7a2-44ed-822b-14fdbe8a7613",
+    "name": "Врач 6",
+    "position": "Врач 6",
+    "description": "Врач 6",
+    "photo": "/uploads/2025/08/vrach6_1755806202524_1efb73329c1e.jpg",
+    "order": 6,
+    "visible": true,
+    "createdAt": "2025-08-21T19:56:43.456Z",
+    "updatedAt": "2025-08-21T19:56:43.456Z"
+  }
+]

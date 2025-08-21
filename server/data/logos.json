@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "src": "/images/kerr.png",
+    "alt": "Kerr",
+    "href": ""
+  },
+  {
+    "id": 2,
+    "src": "/images/nsk.png",
+    "alt": "NSK",
+    "href": ""
+  },
+  {
+    "id": 3,
+    "src": "/images/voco.png",
+    "alt": "VOCO",
+    "href": ""
+  },
+  {
+    "id": 4,
+    "src": "/images/dmg.png",
+    "alt": "DMG",
+    "href": ""
+  },
+  {
+    "id": 5,
+    "src": "/images/dentsply-sirona.png",
+    "alt": "Dentsply Sirona",
+    "href": ""
+  },
+  {
+    "id": 6,
+    "src": "/images/philips.png",
+    "alt": "Philips",
+    "href": ""
+  }
+]

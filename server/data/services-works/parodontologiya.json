@@ -1,0 +1,4 @@
+[
+  { "id": "parodontologiya-01", "title": "Временное шинирование при заболеваниях пародонта (1 единица)", "price": 2000, "oldPrice": null, "note": null, "order": 1, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "parodontologiya-02", "title": "Постоянное шинирование (вантовое, адгезивное, комбинированное) при заболеваниях пародонта (1 единица)", "price": 5000, "oldPrice": null, "note": null, "order": 2, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" }
+]

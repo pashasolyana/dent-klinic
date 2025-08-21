@@ -1,0 +1,112 @@
+[
+  {
+    "id": "protezirovanie-01",
+    "title": "Циркониевая коронка",
+    "price": 37000,
+    "oldPrice": null,
+    "note": null,
+    "order": 1,
+    "active": true,
+    "updatedAt": "2025-08-18T00:00:00.000Z"
+  },
+  {
+    "id": "protezirovanie-02",
+    "title": "Циркониевая коронка на индивидуальном абатменте",
+    "price": 51600,
+    "oldPrice": null,
+    "note": null,
+    "order": 2,
+    "active": true,
+    "updatedAt": "2025-08-18T00:00:00.000Z"
+  },
+  {
+    "id": "protezirovanie-03",
+    "title": "Металлокерамическая коронка",
+    "price": 29000,
+    "oldPrice": null,
+    "note": null,
+    "order": 3,
+    "active": true,
+    "updatedAt": "2025-08-18T00:00:00.000Z"
+  },
+  {
+    "id": "protezirovanie-04",
+    "title": "Металлокерамическая коронка на индивидуальном абатменте",
+    "price": 47400,
+    "oldPrice": null,
+    "note": null,
+    "order": 4,
+    "active": true,
+    "updatedAt": "2025-08-18T00:00:00.000Z"
+  },
+  {
+    "id": "protezirovanie-05",
+    "title": "Временная коронка (изготовление прямым методом)",
+    "price": 5000,
+    "oldPrice": null,
+    "note": null,
+    "order": 5,
+    "active": true,
+    "updatedAt": "2025-08-18T00:00:00.000Z"
+  },
+  {
+    "id": "protezirovanie-06",
+    "title": "Временная коронка из ПММА",
+    "price": 5000,
+    "oldPrice": null,
+    "note": null,
+    "order": 6,
+    "active": true,
+    "updatedAt": "2025-08-18T00:00:00.000Z"
+  },
+  {
+    "id": "protezirovanie-07",
+    "title": "Винир (E.Max; Циркониевый)",
+    "price": 37000,
+    "oldPrice": null,
+    "note": null,
+    "order": 7,
+    "active": true,
+    "updatedAt": "2025-08-18T00:00:00.000Z"
+  },
+  {
+    "id": "protezirovanie-08",
+    "title": "Винир временный",
+    "price": 5000,
+    "oldPrice": null,
+    "note": null,
+    "order": 8,
+    "active": true,
+    "updatedAt": "2025-08-18T00:00:00.000Z"
+  },
+  {
+    "id": "protezirovanie-09",
+    "title": "Вкладка-накладка (Onlay, Inlay, Overlay)",
+    "price": 27500,
+    "oldPrice": null,
+    "note": null,
+    "order": 9,
+    "active": true,
+    "updatedAt": "2025-08-18T00:00:00.000Z"
+  },
+  {
+    "id": "protezirovanie-10",
+    "title": "Вкладка индивидуальная штифтовая КХС",
+    "price": 17000,
+    "oldPrice": null,
+    "note": null,
+    "order": 10,
+    "active": true,
+    "updatedAt": "2025-08-18T00:00:00.000Z"
+  },
+  {
+    "id": "protezirovanie-11",
+    "title": "Бюгельный протез",
+    "price": 75000,
+    "oldPrice": null,
+    "note": null,
+    "order": 11,
+    "active": true,
+    "updatedAt": "2025-08-18T00:00:00.000Z"
+  }
+]

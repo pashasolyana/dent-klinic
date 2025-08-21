@@ -1,0 +1,11 @@
+[
+  { "id": "hirurgiya-01", "title": "Удаление зуба (простое; без швов, мембраны)", "price": 5000, "oldPrice": null, "note": null, "order": 1, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "hirurgiya-02", "title": "Удаление зуба (простое; подсадка костного материала, мембрана, наложение швов)", "price": 8000, "oldPrice": null, "note": null, "order": 2, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "hirurgiya-03", "title": "Удаление сложное (распиливание зуба, откидывание лоскута, подсадка костной ткани, мембрана, швы)", "price": 10000, "oldPrice": null, "note": null, "order": 3, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "hirurgiya-04", "title": "Удаление восьмого зуба (мудрости)", "price": 10000, "oldPrice": null, "note": "от", "order": 4, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "hirurgiya-05", "title": "Синус-лифтинг закрытый", "price": 25000, "oldPrice": null, "note": null, "order": 5, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "hirurgiya-06", "title": "Синус-лифтинг открытый", "price": 35000, "oldPrice": null, "note": null, "order": 6, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "hirurgiya-07", "title": "Пластика уздечки языка", "price": 12000, "oldPrice": null, "note": null, "order": 7, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "hirurgiya-08", "title": "Вестибулопластика лазерным аппаратом Velure S9", "price": 12000, "oldPrice": null, "note": null, "order": 8, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "hirurgiya-09", "title": "Десенсибилизация пародонтального кармана лазером Velure S9 при пародонтите", "price": 3000, "oldPrice": null, "note": null, "order": 9, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" }
+]

@@ -1,0 +1,28 @@
+{
+  "heroTitle": "О клинике123",
+  "foundationTitle": "Основание",
+  "foundationParagraph1": "1",
+  "foundationParagraph2": "2",
+  "yearsText": "17 лет",
+  "goals": [
+    {
+      "id": "9e596203-90d2-4b96-8b6b-91ec55e4a98e",
+      "text": "1"
+    },
+    {
+      "id": "10a98993-b0fc-4611-b881-768da689f9de",
+      "text": "2"
+    }
+  ],
+  "prioritiesTitle": "Приоритеты",
+  "prioritiesP1": "1",
+  "prioritiesP2": "1",
+  "whyTitle": "Почему мы?",
+  "whyText": "1",
+  "priorityImage": "",
+  "goalsBackground": "",
+  "heroYearsCardImage": "",
+  "seoTitle": "О клинике",
+  "seoDescription": "",
+  "updatedAt": "2025-08-18T23:38:37.626Z"
+}

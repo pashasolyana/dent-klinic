@@ -1,0 +1,6 @@
+[
+  { "id": "terapiya-01", "title": "Лечение кариеса с анестезией", "price": 6900, "oldPrice": null, "note": null, "order": 1, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "terapiya-02", "title": "Лечение кариеса без анестезии", "price": 5900, "oldPrice": null, "note": null, "order": 2, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "terapiya-03", "title": "Лечение пульпита (1 канал)", "price": 7900, "oldPrice": null, "note": null, "order": 3, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "terapiya-04", "title": "Лечение периодонтита (1 канал)", "price": 9000, "oldPrice": null, "note": null, "order": 4, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" }
+]

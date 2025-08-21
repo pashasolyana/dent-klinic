@@ -1,0 +1,65 @@
+[
+  {
+    "slug": "diagnostika",
+    "title": "Диагностика",
+    "img": "/images/1-1.png",
+    "href": "/uslugi",
+    "alt": "Диагностика",
+    "order": 1,
+    "active": true
+  },
+  {
+    "slug": "implantaciya",
+    "title": "Имплантация",
+    "img": "/images/2-1.png",
+    "href": "/uslugi",
+    "alt": "Имплантация",
+    "order": 2,
+    "active": true
+  },
+  {
+    "slug": "protezirovanie",
+    "title": "Протезирование",
+    "img": "/images/3-1.png",
+    "href": "/uslugi",
+    "alt": "Протезирование",
+    "order": 3,
+    "active": true
+  },
+  {
+    "slug": "terapiya",
+    "title": "Терапия",
+    "img": "/images/4.png",
+    "href": "/uslugi",
+    "alt": "Терапия",
+    "order": 4,
+    "active": true
+  },
+  {
+    "slug": "hirurgiya",
+    "title": "Хирургия",
+    "img": "/images/5.png",
+    "href": "/uslugi",
+    "alt": "Хирургия",
+    "order": 5,
+    "active": true
+  },
+  {
+    "slug": "profilaktika",
+    "title": "Профилактика",
+    "img": "/images/6.png",
+    "href": "/uslugi",
+    "alt": "Профилактика",
+    "order": 6,
+    "active": true
+  },
+  {
+    "slug": "parodontologiya",
+    "title": "Пародонтология",
+    "img": "/images/7.png",
+    "href": "/uslugi",
+    "alt": "Пародонтология",
+    "order": 7,
+    "active": true
+  }
+]

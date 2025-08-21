@@ -1,0 +1,41 @@
+# dependencies
+/node_modules
+
+# Nuxt build output
+/.nuxt
+/.output
+/dist
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+.vs/
+
+# environment variables
+.env
+.env.*.local
+
+# system files
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# Docker
+docker-compose.override.yml
+*.pid
+*.seed
+
+# OWASP ZAP reports
+zap-full*.html
+zap_full*.log
+
+# Windows BAT temp
+tmp_http.txt
+
+# Optional: если делаешь отчёты/результаты в папке reports
+/reports/

@@ -1,0 +1,9 @@
+[
+  { "id": "implantaciya-01", "title": "Имплантат «Straumann» (Швейцария) — хирургический этап", "price": 65000, "oldPrice": null, "note": null, "order": 1, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "implantaciya-02", "title": "Имплантат «Bego» (Германия) — хирургический этап", "price": 65000, "oldPrice": null, "note": null, "order": 2, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "implantaciya-03", "title": "Имплантат «IMPRO» (Германия) — хирургический этап", "price": 59000, "oldPrice": null, "note": null, "order": 3, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "implantaciya-04", "title": "Имплантат «AnyRidge» (Корея) — хирургический этап", "price": 59000, "oldPrice": null, "note": null, "order": 4, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "implantaciya-05", "title": "Имплантат «AnyOne» (Корея) — хирургический этап", "price": 47000, "oldPrice": null, "note": null, "order": 5, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "implantaciya-06", "title": "Имплантат «Noris» (Израиль) — хирургический этап", "price": 45000, "oldPrice": null, "note": null, "order": 6, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" },
+  { "id": "implantaciya-07", "title": "Имплантат «Osstem» (Корея) — хирургический этап", "price": 39000, "oldPrice": null, "note": null, "order": 7, "active": true, "updatedAt": "2025-08-18T00:00:00.000Z" }
+]
