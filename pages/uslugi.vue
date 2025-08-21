@@ -13,7 +13,7 @@ definePageMeta({
   layout: 'custom-default',
   headerLinks: [
     { label: 'О клинике', href: '/o-klinike' },
-    { label: 'Акции',     href: '/акcii' },
+    { label: 'Акции',     href: '/akcii' }, // fix
     { label: 'Врачи',     href: '/vrachi' },
     { label: 'Услуги',    href: '/uslugi' },
     { label: 'Контакты',  href: '#contacts' }
@@ -33,6 +33,7 @@ const cache = reactive<Record<string, { loading: boolean; error: string|null; wo
 const fmt = (v: number|null) =>
   v == null ? '—' : new Intl.NumberFormat('ru-RU').format(v) + ' ₽'
 
+/* раскрытие без программного скролла страницы */
 async function toggle(slug: string) {
   const willOpen = openSlug.value !== slug
   openSlug.value = willOpen ? slug : null
@@ -96,7 +97,7 @@ useJsonLd(() => ({
   }))
 }))
 
-/* ===== ТРАНЗИШНЫ ДЛЯ АККОРДЕОНА ===== */
+/* ===== ТРАНЗИШНЫ ДЛЯ АККОРДЕОНА (оставляем плавное открытие) ===== */
 function beforeEnter(el: Element) {
   const e = el as HTMLElement
   e.style.height = '0'
@@ -154,6 +155,7 @@ function afterLeave(el: Element) {
         >
           <button
             class="card__head"
+            :id="`hdr-${s.slug}`"
             type="button"
             :aria-expanded="openSlug === s.slug"
             :aria-controls="`panel-${s.slug}`"
@@ -415,13 +417,16 @@ function afterLeave(el: Element) {
   .panel__inner { animation: none !important; }
 }
 
-.srv, .list, .card, .card__panel, .panel__inner {
-  overflow-anchor: none;
-}
+/* scroll anchoring: не тянем вьюпорт при изменении высоты панели */
+.srv, .list, .card, .panel__inner { overflow-anchor: auto; }
+.card__panel { overflow-anchor: none; }
 
-/* небольшая защита от layout shift при ленивой загрузке контента */
+/* отключаем возможный глобальный smooth-scroll только на этой странице */
+:global(html){ scroll-behavior: auto; }
+
+/* убираем экспериментальные хаки, которые могли вызывать скачок */
 .card__panel {
-  content-visibility: auto;
-  contain-intrinsic-size: 1px 400px; /* приблизительная высота панели */
+  content-visibility: visible;
+  contain-intrinsic-size: auto;
 }
 </style>
