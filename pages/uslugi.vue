@@ -414,4 +414,14 @@ function afterLeave(el: Element) {
   .chev { transition: none; }
   .panel__inner { animation: none !important; }
 }
+
+.srv, .list, .card, .card__panel, .panel__inner {
+  overflow-anchor: none;
+}
+
+/* небольшая защита от layout shift при ленивой загрузке контента */
+.card__panel {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 400px; /* приблизительная высота панели */
+}
 </style>
