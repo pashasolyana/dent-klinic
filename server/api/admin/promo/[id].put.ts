@@ -2,16 +2,15 @@ import { defineEventHandler, readBody, createError } from 'h3'
 import { readJson, writeJson } from '~/server/utils/jsondb'
 import { requireAdmin } from '~/server/utils/auth'
 
-function sanitizeHtml(html) {
+function sanitizeHtml(html: any) {
   if (typeof html !== 'string') return ''
-
-  // вырезаем опасное
+  // вырезаем опасности
   html = html
     .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '')
     .replace(/<style[\s\S]*?>[\s\S]*?<\/style>/gi, '')
     .replace(/<!--[\s\S]*?-->/g, '')
 
-  // иногда пользователи вставляют <span style="..."> — нормализуем в b/i/u
+  // нормализация span->b/i/u
   html = html
     .replace(/<span\b[^>]*style="[^"]*font-weight\s*:\s*(bold|[6-9]00|bolder)[^"]*"[^>]*>([\s\S]*?)<\/span>/gi, '<b>$2</b>')
     .replace(/<span\b[^>]*style="[^"]*font-style\s*:\s*italic[^"]*"[^>]*>([\s\S]*?)<\/span>/gi, '<i>$1</i>')
@@ -22,15 +21,15 @@ function sanitizeHtml(html) {
     .replace(/\s(on\w+|style)\s*=\s*"(?:[^"\\]|\\.)*"/gi, '')
     .replace(/\s(on\w+|style)\s*=\s*'(?:[^'\\]|\\.)*'/gi, '')
 
-  // разрешённые теги (без stateful RegExp!)
+  // whitelisting
   const ALLOWED = new Set(['a','b','strong','i','em','u','br','p','ul','ol','li'])
   html = html.replace(/<\/?([a-z0-9-]+)(\s[^>]*)?>/gi, (m, tag) =>
     ALLOWED.has(String(tag).toLowerCase()) ? m : ''
   )
 
-  // чистим <a>: только безопасные href/target/rel + class
+  // чистим <a>
   html = html.replace(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi, (m, attrs, inner) => {
-    const getAttr = (name) => {
+    const getAttr = (name: string) => {
       const re = new RegExp(`\\b${name}\\s*=\\s*("([^"]*)"|'([^']*)'|([^\\s>]+))`, 'i')
       const m2 = attrs.match(re)
       return m2 ? (m2[2] ?? m2[3] ?? m2[4] ?? '') : ''
@@ -57,6 +56,13 @@ function sanitizeHtml(html) {
   return html
 }
 
+function normStr(v: any) { return String(v ?? '').trim() }
+function asNumOrStr(v: any) {
+  const s = String(v ?? '').trim().replace(/\s+/g,'')
+  if (!s) return ''
+  return /^\d+$/.test(s) ? Number(s) : s // разрешим и строковое «4 900 ₽» после фронта
+}
+
 export default defineEventHandler( async (event) => {
   requireAdmin(event)
   const id = Number(event.context.params.id)
@@ -67,17 +73,57 @@ export default defineEventHandler( async (event) => {
   if (idx === -1) throw createError({ statusCode: 404, statusMessage: 'Slide not found' })
 
   const cur = list[idx]
- const next = {
-  ...cur,
-  title: String(patch.title ?? cur.title ?? '').trim(),
-  text: sanitizeHtml(String(patch.text ?? cur.text ?? '')),
-  img: String(patch.img ?? cur.img ?? '').trim(),
-  discount: patch.discount ?? cur.discount ?? null,
-  price: patch.price ?? cur.price ?? null,
-  ctaText: String(patch.ctaText ?? cur.ctaText ?? ''),
-  ctaHref: String(patch.ctaHref ?? cur.ctaHref ?? ''),
-  free: !!(patch.free ?? cur.free)
-}
+
+  // --- НОВОЕ: нормализация offers[] (если пришли) ---
+  let offers = Array.isArray(patch.offers) ? patch.offers : cur.offers
+  if (Array.isArray(offers)) {
+    offers = offers.map((o:any, k:number) => {
+      const id = normStr(o.id) || `o-${id}-${k}`
+      const free = !!o.free
+      const price = free ? null : (o.price ?? null)
+      const safePrice = price ? {
+        old: asNumOrStr(price.old),
+        new: asNumOrStr(price.new),
+        label: normStr(price.label)
+      } : null
+      return {
+        id,
+        text: sanitizeHtml(normStr(o.text)),
+        free,
+        price: safePrice
+      }
+    })
+  } else {
+    // ОБРАТНАЯ СОВМЕСТИМОСТЬ: если офферов нет — соберем из старых полей
+    const free = !!(patch.free ?? cur.free)
+    const price = free ? null : (patch.price ?? cur.price ?? null)
+    offers = [{
+      id: `legacy-${id}`,
+      text: sanitizeHtml(normStr(patch.text ?? cur.text ?? '')),
+      free,
+      price: price ? {
+        old: asNumOrStr(price.old),
+        new: asNumOrStr(price.new),
+        label: normStr(price.label)
+      } : null
+    }]
+  }
+
+  const next = {
+    ...cur,
+    title: normStr(patch.title ?? cur.title),
+    text: sanitizeHtml(normStr(patch.text ?? cur.text)),
+    img: normStr(patch.img ?? cur.img),
+    discount: patch.discount ?? cur.discount ?? null,
+    // сохраняем только новую модель:
+    offers,
+    // старые поля оставим (необязательно), чтобы фронт со старым кодом не упал
+    price: patch.price ?? cur.price ?? null,
+    ctaText: normStr(patch.ctaText ?? cur.ctaText),
+    ctaHref: normStr(patch.ctaHref ?? cur.ctaHref),
+    free: !!(patch.free ?? cur.free)
+  }
+
   list[idx] = next
   await writeJson('promo.json', list)
   return next

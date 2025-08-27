@@ -1,17 +1,22 @@
 <script setup>
-definePageMeta({ layout: 'admin' , middleware: ['auth']})
+definePageMeta({ layout: 'admin', middleware: ['auth'] })
 
-import SimpleHtmlEditor from '~/components/admin/SimpleHtmlEditor.vue' // явный импорт, чтобы не путаться с автокомпонентами
+import SimpleHtmlEditor from '~/components/admin/SimpleHtmlEditor.vue'
 const route = useRoute()
 const router = useRouter()
 
-const isNew = computed(()=> route.params.id === 'new')
+const isNew = computed(() => route.params.id === 'new')
+
+// НОВОЕ: тип оффера
 
 const form = reactive({
   title: '',
   text: '',
   img: '',
   discount: '',
+  // НОВОЕ: офферы
+  offers: [],
+  // СТАРОЕ (для миграции/совместимости):
   price: { old: '', new: '', label: '' },
   ctaText: '',
   ctaHref: '',
@@ -21,40 +26,85 @@ const form = reactive({
 const busy = ref(false)
 const err = ref('')
 
+function uuid() {
+  return Math.random().toString(36).slice(2) + Date.now().toString(36)
+}
+
 onMounted(async () => {
   if (!isNew.value) {
     const s = await $fetch(`/api/admin/promo/${route.params.id.replace(/[^0-9]/g,'')}`)
       .catch(async () => {
-        // если нет хендлера GET по id, просто вытащим список и найдём
         const all = await $fetch('/api/admin/promo')
         return all.find(x => String(x.id) === String(route.params.id))
       })
     if (!s) return
+
+    // нормализация/миграция
+    const hasOffers = Array.isArray(s.offers) && s.offers.length
+    const offers = hasOffers ? s.offers.map((o) => ({
+      id: o.id || uuid(),
+      text: o.text || '',
+      price: o.free ? null : (o.price ?? null),
+      free: !!o.free
+    })) : [{
+      id: uuid(),
+      text: s.text || '',
+      price: s.free ? null : (s.price ?? null),
+      free: !!s.free
+    }]
+
     Object.assign(form, {
       title: s.title || '',
       text: s.text || '',
       img: s.img || '',
       discount: s.discount || '',
+      offers,
+      // старые для совместимости (необязательно показывать)
       price: { old: s.price?.old || '', new: s.price?.new || '', label: s.price?.label || '' },
       ctaText: s.ctaText || '',
       ctaHref: s.ctaHref || '',
       free: !!s.free
     })
+  } else {
+    // дефолт: один пустой оффер
+    form.offers = [{ id: uuid(), text: '', price: null, free: false }]
   }
 })
 
+function addOffer() {
+  form.offers.push({ id: uuid(), text: '', price: null, free: false })
+}
+function delOffer(i) {
+  form.offers.splice(i,1)
+  if (!form.offers.length) addOffer()
+}
+
 async function save() {
-  busy.value = true; err.value=''
-  try{
+  busy.value = true; err.value = ''
+  try {
+    // чистка: если оффер free=true — price=null
+    const payload = {
+      ...form,
+      offers: form.offers.map(o => ({
+        id: o.id,
+        text: o.text,
+        free: !!o.free,
+        price: o.free ? null : (o.price ?? null)
+      }))
+    }
+
     if (isNew.value) {
-      const created = await $fetch('/api/admin/promo', { method:'POST', credentials:'include', body: form })
+      const created = await $fetch('/api/admin/promo', { method:'POST', credentials:'include', body: payload })
       await router.replace(`/admin/promo/${created.id}`)
     } else {
-      await $fetch(`/api/admin/promo/${route.params.id}`, { method:'PUT', credentials:'include', body: form })
+      await $fetch(`/api/admin/promo/${route.params.id}`, { method:'PUT', credentials:'include', body: payload })
     }
     navigateTo('/admin/promo')
-  }catch(e){ err.value = e?.data?.message || 'Ошибка сохранения' }
-  finally{ busy.value = false }
+  } catch(e) {
+    err.value = e?.data?.message || 'Ошибка сохранения'
+  } finally {
+    busy.value = false
+  }
 }
 
 async function onPick(e){
@@ -72,6 +122,7 @@ async function onPick(e){
   }
 }
 </script>
+
 
 <template>
   <section class="wrap">
@@ -105,31 +156,50 @@ async function onPick(e){
 
           <div class="row">
             <div class="col">
-              <label class="label">Скидка (бейдж)</label>
+              <label class="label">Скидка (бейдж на слайде)</label>
               <input v-model="form.discount" class="inp" placeholder="-30%" />
-            </div>
-            <div class="col">
-              <label class="label">Бесплатно</label>
-              <label class="switch">
-                <input type="checkbox" v-model="form.free" />
-                <span></span>
-              </label>
             </div>
           </div>
 
-          <div v-if="!form.free" class="row">
-            <div class="col">
-              <label class="label">Старая цена</label>
-              <input v-model="form.price.old" class="inp" placeholder="например 6 900 ₽" />
+          <!-- НОВОЕ: редактор офферов -->
+          <label class="label" style="margin-top:16px">Офферы (пункты с ценой/«Бесплатно»)</label>
+          <div class="offers">
+            <div v-for="(o,i) in form.offers" :key="o.id" class="offer">
+              <div class="offer-head">
+                <span class="offer-idx">#{{ i+1 }}</span>
+                <button type="button" class="mini danger" @click="delOffer(i)">Удалить</button>
+              </div>
+
+              <label class="sublabel">Текст оффера (допускается базовый HTML)</label>
+              <SimpleHtmlEditor v-model="o.text" placeholder="Например: «Первичная консультация стоматолога»" />
+
+              <div class="row">
+                <div class="col">
+                  <label class="sublabel">Бесплатно</label>
+                  <label class="switch">
+                    <input type="checkbox" v-model="o.free" />
+                    <span></span>
+                  </label>
+                </div>
+
+                <template v-if="!o.free">
+                  <div class="col">
+                    <label class="sublabel">Старая цена</label>
+                    <input v-model="(o.price ||= {}).old" class="inp" placeholder="6 900" />
+                  </div>
+                  <div class="col">
+                    <label class="sublabel">Новая цена</label>
+                    <input v-model="(o.price ||= {}).new" class="inp" placeholder="4 900" />
+                  </div>
+                  <div class="col">
+                    <label class="sublabel">Лейбл (например «По акции»)</label>
+                    <input v-model="(o.price ||= {}).label" class="inp" placeholder="По акции" />
+                  </div>
+                </template>
+              </div>
             </div>
-            <div class="col">
-              <label class="label">Новая цена</label>
-              <input v-model="form.price.new" class="inp" placeholder="например 4 900 ₽" />
-            </div>
-            <div class="col">
-              <label class="label">Лейбл</label>
-              <input v-model="form.price.label" class="inp" placeholder="Бесплатно / По акции" />
-            </div>
+
+            <button type="button" class="mini" @click="addOffer">+ Добавить оффер</button>
           </div>
         </div>
 
@@ -151,6 +221,7 @@ async function onPick(e){
     </form>
   </section>
 </template>
+
 
 <style scoped>
 .wrap{ width:100%; display:grid; place-items:center; }
@@ -188,4 +259,17 @@ async function onPick(e){
 .actions{ display:flex; gap:10px; align-items:center; margin-top:14px; }
 .btn{ height:44px; padding:0 16px; border-radius:12px; border:1px solid transparent; background:#2f6bff; color:#fff; font-weight:600; }
 .err{ color:#f87171; }
+
+.offers{ display:grid; gap:12px; }
+.offer{
+  border:1px solid #2a2f3a; background:#0f1220; border-radius:12px; padding:12px;
+}
+.offer-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.offer-idx{ color:#9aa3b2; font:600 13px/1 system-ui; }
+.sublabel{ display:block; margin:8px 0 6px; color:#9aa3b2; font-size:13px; }
+
+.mini{
+  height:32px; padding:0 10px; border-radius:10px; border:1px solid #2a2f3a; background:#151b30; color:#e7eaf3;
+}
+.mini.danger{ border-color:#3b2330; background:#2a141b; color:#ffd3db; }
 </style>
