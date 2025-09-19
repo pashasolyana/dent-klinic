@@ -13,15 +13,15 @@
               <div class="head__icon">📞</div>
               <a class="head__tel" :href="`tel:${contacts?.phone}`" >{{ contacts?.phone || '—' }}</a>
               <div class="head__soc">
-                <a :href="contacts?.social?.telegramUrl" target="_blank" aria-label="Telegram" v-if="contacts?.social?.telegramUrl">
+                <!-- <a :href="contacts?.social?.telegramUrl" target="_blank" aria-label="Telegram" v-if="contacts?.social?.telegramUrl">
                   <img src="/images/tg.png" alt="Telegram" />
                 </a>
                 <a :href="contacts?.social?.whatsappUrl" target="_blank" aria-label="WhatsApp" v-if="contacts?.social?.whatsappUrl">
                   <img src="/images/wa.png" alt="WhatsApp" />
-                </a>
+                </a> -->
               </div>
             </div>
-            <a :href="contacts?.ctaHref || '#form'" class="btn">{{ contacts?.ctaLabel || 'Оставить заявку' }}</a>
+            <!-- <a :href="contacts?.ctaHref || '#form'" class="btn">{{ contacts?.ctaLabel || 'Оставить заявку' }}</a> -->
           </article>
 
           <article class="card card--row">

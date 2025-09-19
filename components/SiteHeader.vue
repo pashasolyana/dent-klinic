@@ -13,14 +13,14 @@
 
       <!-- CTA + соцсети -->
       <div class="hdr__right">
-        <a href="#form" class="hdr__btn"><span>Оставить заявку</span></a>
+        <!-- <a href="#form" class="hdr__btn"><span>Оставить заявку</span></a>
 
         <a class="hdr__soc" :href="waHref" target="_blank" rel="noopener" aria-label="WhatsApp">
           <img src="/images/wa.png" alt="" class="hdr__soc-img" />
         </a>
         <a class="hdr__soc" :href="tgHref" target="_blank" rel="noopener" aria-label="Telegram">
           <img src="/images/tg.png" alt="" class="hdr__soc-img" />
-        </a>
+        </a> -->
       </div>
 
       <!-- Бургер -->
@@ -43,15 +43,15 @@
             <a v-for="l in links" :key="l.href" :href="l.href" class="mnav__link" @click="open = false">{{ l.label }}</a>
           </nav>
 
-          <a href="#form" class="mnav__cta" @click="open = false">Оставить заявку</a>
+          <!-- <a href="#form" class="mnav__cta" @click="open = false">Оставить заявку</a> -->
 
           <div class="mnav__social">
-            <a class="mnav__soc" :href="waHref" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <!-- <a class="mnav__soc" :href="waHref" target="_blank" rel="noopener" aria-label="WhatsApp">
               <img src="/images/wa.png" alt="" class="hdr__soc-img" />
             </a>
             <a class="mnav__soc" :href="tgHref" target="_blank" rel="noopener" aria-label="Telegram">
               <img src="/images/tg.png" alt="" class="hdr__soc-img" />
-            </a>
+            </a> -->
           </div>
         </div>
       </aside>

@@ -1,0 +1,44 @@
+# Файлы разработки
+node_modules
+.nuxt
+.output
+.git
+.github
+
+# Логи
+*.log
+logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Временные файлы
+.tmp
+.cache
+.DS_Store
+Thumbs.db
+
+# Среда разработки
+.env.local
+.env.development
+
+# Docker файлы
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Скрипты деплоя
+deploy.sh
+manage.sh
+
+# Резервные копии
+backups
+
+# IDE файлы
+.vscode
+.idea
+*.swp
+*.swo
+
+# Покрытие тестов
+coverage

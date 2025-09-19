@@ -3,11 +3,20 @@ const modelValue = defineModel<boolean>({ default: false })
 const close = () => (modelValue.value = false)
 
 // Закрытие по ESC и клику на оверлей
-onMounted(() => {
-  const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close()
-  window.addEventListener('keydown', onKey)
-  onUnmounted(() => window.removeEventListener('keydown', onKey))
-})
+if (import.meta.client) {
+  const onKey = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') close()
+  }
+
+  onMounted(() => {
+    window.addEventListener('keydown', onKey)
+  })
+
+  onBeforeUnmount(() => {
+    window.removeEventListener('keydown', onKey)
+  })
+}
+
 </script>
 
 <template>

@@ -9,7 +9,7 @@ function escXml(s: string) {
 
 export default defineEventHandler(async (event) => {
   const { public: pub } = useRuntimeConfig()
-  const siteUrl = String(pub.siteUrl || '').replace(/\/$/, '') || 'https://example.com'
+  const siteUrl = String(pub.siteUrl || '').replace(/\/$/, '') || 'https://bronnikovdent.site'
   setHeader(event, 'Content-Type', 'application/xml; charset=utf-8')
 
   // ТОЛЬКО реальные страницы (без #якорей)

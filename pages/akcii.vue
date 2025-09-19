@@ -16,7 +16,7 @@ type PromoSlide = {
 definePageMeta({
   layout: 'custom-default',
   headerLinks: [
-    { label: 'О клинике', href: '/о-klinike' },
+    { label: 'О клинике', href: '/o-klinike' },
     { label: 'Акции',     href: '/akcii' },
     { label: 'Врачи',     href: '/vrachi' },
     { label: 'Услуги',    href: '/uslugi' },

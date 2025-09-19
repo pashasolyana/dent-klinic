@@ -40,6 +40,8 @@ useSeoMeta({
   // при необходимости можно добавить alternates: [{ hrefLang: 'ru', href: '/' }]
 })
 
+
+
 // -------- JSON-LD: WebSite + Organization --------
 const { public: pub } = useRuntimeConfig()
 const siteUrl = (pub?.siteUrl || '').replace(/\/$/, '') || 'https://example.com'

@@ -20,26 +20,6 @@
     "updatedAt": "2025-08-18T00:00:00.000Z"
   },
   {
-    "id": "protezirovanie-03",
-    "title": "Металлокерамическая коронка",
-    "price": 29000,
-    "oldPrice": null,
-    "note": null,
-    "order": 3,
-    "active": true,
-    "updatedAt": "2025-08-18T00:00:00.000Z"
-  },
-  {
-    "id": "protezirovanie-04",
-    "title": "Металлокерамическая коронка на индивидуальном абатменте",
-    "price": 47400,
-    "oldPrice": null,
-    "note": null,
-    "order": 4,
-    "active": true,
-    "updatedAt": "2025-08-18T00:00:00.000Z"
-  },
-  {
     "id": "protezirovanie-05",
     "title": "Временная коронка (изготовление прямым методом)",
     "price": 5000,
@@ -108,5 +88,15 @@
     "order": 11,
     "active": true,
     "updatedAt": "2025-08-18T00:00:00.000Z"
+  },
+  {
+    "id": "868f8de8-ca2e-489b-b6b0-75b92af64574",
+    "title": "Протез \"Quadrotti\"",
+    "price": 85000,
+    "oldPrice": null,
+    "note": null,
+    "active": true,
+    "order": 12,
+    "updatedAt": "2025-09-15T12:37:43.782Z"
   }
 ]

@@ -1,8 +1,13 @@
 <template>
   <NuxtLayout>
     <NuxtPage />
+    <Head>
+      <Meta name="yandex-verification" content="738d8198ffdcae5b" />
+    </Head>
   </NuxtLayout>
 </template>
+
+
 
 <script setup lang="ts">
 const route = useRoute()

@@ -137,7 +137,7 @@ useJsonLd(() => ({
   display:grid;
   gap:var(--gap);
   row-gap: 36px; /* вертикальное расстояние между карточками */
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   align-items:start;
 }
 .item{
@@ -152,35 +152,54 @@ useJsonLd(() => ({
   position:relative;
   border-radius:var(--card-radius) !important;
   overflow:hidden;
-  aspect-ratio:3 / 4;
+  aspect-ratio:4 / 5;
   background:transparent;
   box-shadow:0 6px 20px rgba(0,0,0,.5);
-  transition:transform .3s ease, box-shadow .3s ease;
-  border:2px solid rgba(255,255,255,.25); /* рамка */
-  
+  transition:all .4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border:2px solid rgba(255,255,255,.25);
+  cursor: pointer;
 }
 .ph:hover{
-  transform:translateY(-6px) scale(1.02);
-  box-shadow:0 12px 28px rgba(0,0,0,.65);
-  border-color:rgba(255,255,255,.5);
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:0 16px 32px rgba(0,0,0,.7);
+  border-color:rgba(255,255,255,.4);
 }
 .ph-img{
   width:110%; height:110%;
-  object-fit:cover; display:block;
+  object-fit:cover; 
+  display:block;
+  transition: transform .4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.ph:hover .ph-img{
+  transform: scale(1.05);
 }
 
 /* Overlay */
 .overlay{
   position:absolute; inset:0;
-  display:grid; place-content:end;
-  padding:18px;
-  background:linear-gradient(180deg, rgba(7,10,16,0) 0%, rgba(7,10,16,.55) 50%, rgba(7,10,16,.92) 100%);
-  transform:translateY(100%);
-  transition:transform .35s ease;
+  display:flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: flex-start;
+  padding:14px;
+  background:linear-gradient(
+    180deg, 
+    rgba(7,10,16,0) 0%, 
+    rgba(7,10,16,.1) 20%,
+    rgba(7,10,16,.5) 50%, 
+    rgba(7,10,16,.85) 75%,
+    rgba(7,10,16,.95) 100%
+  );
+  opacity:0;
+  transform:translateY(20px);
+  transition:all .4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   color:#fff;
 }
 .ph:hover .overlay,
-.ph:focus-visible .overlay{ transform:translateY(0); }
+.ph:focus-visible .overlay{ 
+  opacity:1;
+  transform:translateY(0); 
+}
 
 /* Подпись под фото (мобилка) */
 .below{ display:none; padding:12px 4px 0; text-align:center; }
@@ -188,25 +207,62 @@ useJsonLd(() => ({
 @media (max-width: 991px){
   .overlay{ display:none; }
   .below{ display:block; }
+  .ph{ aspect-ratio: 3 / 4; } /* На мобильных возвращаем прежние пропорции */
+}
+
+/* Адаптивность для больших экранов */
+@media (min-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+/* Для планшетов */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
 }
 
 /* Текстовые стили */
 .name{
   color:#ffffff;
   font-weight:800;
-  font-size:clamp(18px, 2vw, 22px);
-  margin:0 0 6px;
+  font-size:clamp(14px, 1.5vw, 17px);
+  margin:0 0 3px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+  line-height: 1.1;
 }
 .pos{
-  margin:0 0 6px;
+  margin:0 0 4px;
   color:#ffffff;
-  font-size:14px;
+  font-size:11px;
+  font-weight: 500;
+  opacity: 0.95;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.9);
 }
 .desc{
   margin:0;
-  font-size:14px;
-  line-height:1.55;
+  font-size:10px;
+  line-height:1.3;
   color:#ffffff;
-  opacity:.92;
+  opacity:.9;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+  display: -webkit-box;
+  -webkit-line-clamp: 8;
+  line-clamp: 8;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 </style>
