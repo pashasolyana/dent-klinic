@@ -4,9 +4,11 @@
     <main class="page-main">
       <slot />
     </main>
+    <SiteFooter />
      <ModalForm v-model="showForm">
       <LeadForm @submitted="showForm = false" />
     </ModalForm>
+    <CookieBanner />
   </div>
 </template>
 
@@ -15,6 +17,8 @@
 import SiteHeader from '~/components/SiteHeader.vue'
 import ModalForm from '~/components/ModalForm.vue'
 import LeadForm from '~/components/LeadForm.vue'
+import CookieBanner from '~/components/CookieBanner.vue'
+import SiteFooter from '~/components/SiteFooter.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useHead } from '@unhead/vue'
 import { useRuntimeConfig } from 'nuxt/app'

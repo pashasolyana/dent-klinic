@@ -4,6 +4,8 @@ import { computed, ref, watch, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import ModalForm from '~/components/ModalForm.vue'
 import LeadForm from '~/components/LeadForm.vue'
+import CookieBanner from '~/components/CookieBanner.vue'
+import SiteFooter from '~/components/SiteFooter.vue'
 import { useHead } from '@unhead/vue'
 import { useRuntimeConfig } from 'nuxt/app'
 
@@ -45,11 +47,12 @@ const headerLinks = computed<LinkItem[]>(() => (route.meta?.headerLinks as LinkI
     <SiteHeader :links="headerLinks" />
     <NuxtPage />
     <Contact />
-    
+    <SiteFooter />
   </div>
     <ModalForm v-model="showForm">
       <LeadForm @submitted="showForm = false" />
     </ModalForm>
+    <CookieBanner />
 </template>
 
 <style>
