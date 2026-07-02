@@ -1,0 +1,1 @@
+export const PRIVACY_POLICY_VERSION = '02.07.2026'

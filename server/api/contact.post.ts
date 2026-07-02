@@ -1,6 +1,8 @@
 import { z } from 'zod'
 import { sendMail } from '~/server/utils/mailer'
 import { assertRateLimit } from '~/server/utils/rateLimit'
+import { recordConsent } from '~/server/utils/consentLog'
+import { PRIVACY_POLICY_VERSION } from '~/shared/utils/legal'
 
 const BodySchema = z.object({
   name: z.string().min(2).max(200),
@@ -39,7 +41,19 @@ export default defineEventHandler(async (event) => {
   const ip = getRequestIP(event) || getRequestHeader(event, 'x-forwarded-for') || 'unknown'
   await assertRateLimit(`contact:${ip}`, 5 * 60 * 1000)
 
-  // 4) Отправка письма
+  // 4) Фиксация согласия на обработку ПДн (дата, время, версия политики, IP) — требование 152-ФЗ
+  const consentAt = new Date().toISOString()
+  const userAgent = getRequestHeader(event, 'user-agent') || 'unknown'
+  await recordConsent({
+    name: b.name,
+    phone: b.phone,
+    ip: String(ip),
+    userAgent,
+    consentAt,
+    policyVersion: PRIVACY_POLICY_VERSION
+  })
+
+  // 5) Отправка письма
   const html = `
     <div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6">
       <h2>Заявка с сайта</h2>
@@ -48,7 +62,8 @@ export default defineEventHandler(async (event) => {
       <p><b>Комментарий:</b><br/>${escapeHtml(b.message).replace(/\n/g,'<br/>')}</p>
       <hr/>
       <p style="color:#888">IP: ${escapeHtml(String(ip))}</p>
-      <p style="color:#888">Отправлено: ${new Date().toISOString()}</p>
+      <p style="color:#888">Отправлено: ${consentAt}</p>
+      <p style="color:#888">Согласие на обработку ПДн получено, версия политики от ${escapeHtml(PRIVACY_POLICY_VERSION)}</p>
     </div>
   `
   await sendMail({

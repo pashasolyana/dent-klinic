@@ -50,6 +50,10 @@ export default defineNuxtConfig({
   },
 
   nitro: {
+    storage: {
+      // Фиксация согласий на обработку ПДн должна переживать рестарт/деплой (152-ФЗ)
+      consent: { driver: 'fs', base: './.data/consent' }
+    },
     routeRules: {
       // ВАЖНО: все имена заголовков — строчные
       '/**': {

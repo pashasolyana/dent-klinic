@@ -18,6 +18,9 @@ pnpm-debug.log*
 .env
 .env.*.local
 
+# зафиксированные согласия на обработку ПДн — содержат реальные данные посетителей
+/.data
+
 # system files
 .DS_Store
 Thumbs.db
