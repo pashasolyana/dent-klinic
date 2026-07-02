@@ -15,11 +15,11 @@ export default defineEventHandler(async (event) => {
   const item: any = {
     id: randomUUID(),
     title: String(b.title ?? '').trim(),
-    price: Number(b.price ?? 0),
-    oldPrice: b.oldPrice != null ? Number(b.oldPrice) : null,
+    price: b.price ?? 0,
+    oldPrice: b.oldPrice != null ? b.oldPrice : null,
     note: b.note ? String(b.note) : null,
     active: b.active !== false,
-    order: list.length ? Math.max(...list.map(x=>x.order ?? 0)) + 1 : 1,
+    order: list.length ? Math.max(...list.map(x => x.order ?? 0)) + 1 : 1,
     updatedAt: new Date().toISOString(),
   }
   if (!item.title) throw createError({ statusCode: 400, statusMessage: 'title required' })

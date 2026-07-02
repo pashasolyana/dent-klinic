@@ -2,101 +2,141 @@
   {
     "id": "protezirovanie-01",
     "title": "Циркониевая коронка",
-    "price": 37000,
+    "price": "Цена договорная",
     "oldPrice": null,
-    "note": null,
+    "note": "",
     "order": 1,
     "active": true,
-    "updatedAt": "2025-08-18T00:00:00.000Z"
+    "updatedAt": "2026-01-21T08:21:18.377Z"
   },
   {
     "id": "protezirovanie-02",
     "title": "Циркониевая коронка на индивидуальном абатменте",
-    "price": 51600,
+    "price": "Цена договорная",
     "oldPrice": null,
-    "note": null,
+    "note": "",
     "order": 2,
     "active": true,
-    "updatedAt": "2025-08-18T00:00:00.000Z"
+    "updatedAt": "2026-01-21T08:21:19.215Z"
   },
   {
     "id": "protezirovanie-05",
-    "title": "Временная коронка (изготовление прямым методом)",
-    "price": 5000,
+    "title": "Циркониевая коронка на импланте винтовая фиксация",
+    "price": "Цена договорная",
     "oldPrice": null,
-    "note": null,
-    "order": 5,
+    "note": "",
+    "order": 3,
     "active": true,
-    "updatedAt": "2025-08-18T00:00:00.000Z"
+    "updatedAt": "2026-01-21T08:21:19.938Z"
   },
   {
     "id": "protezirovanie-06",
     "title": "Временная коронка из ПММА",
-    "price": 5000,
+    "price": 8000,
     "oldPrice": null,
-    "note": null,
-    "order": 6,
+    "note": "от",
+    "order": 4,
     "active": true,
-    "updatedAt": "2025-08-18T00:00:00.000Z"
+    "updatedAt": "2026-01-23T10:00:54.734Z"
   },
   {
     "id": "protezirovanie-07",
     "title": "Винир (E.Max; Циркониевый)",
-    "price": 37000,
+    "price": "Цена договорная",
     "oldPrice": null,
-    "note": null,
-    "order": 7,
+    "note": "",
+    "order": 5,
     "active": true,
-    "updatedAt": "2025-08-18T00:00:00.000Z"
+    "updatedAt": "2026-01-21T08:21:21.476Z"
   },
   {
     "id": "protezirovanie-08",
     "title": "Винир временный",
-    "price": 5000,
+    "price": 8000,
     "oldPrice": null,
-    "note": null,
-    "order": 8,
+    "note": "от",
+    "order": 6,
     "active": true,
-    "updatedAt": "2025-08-18T00:00:00.000Z"
+    "updatedAt": "2026-01-23T10:00:10.711Z"
   },
   {
     "id": "protezirovanie-09",
     "title": "Вкладка-накладка (Onlay, Inlay, Overlay)",
-    "price": 27500,
+    "price": "Цена договорная",
     "oldPrice": null,
     "note": null,
-    "order": 9,
+    "order": 7,
     "active": true,
-    "updatedAt": "2025-08-18T00:00:00.000Z"
+    "updatedAt": "2026-01-21T08:21:22.917Z"
   },
   {
     "id": "protezirovanie-10",
     "title": "Вкладка индивидуальная штифтовая КХС",
-    "price": 17000,
+    "price": 20000,
     "oldPrice": null,
-    "note": null,
-    "order": 10,
+    "note": "от",
+    "order": 8,
     "active": true,
-    "updatedAt": "2025-08-18T00:00:00.000Z"
+    "updatedAt": "2026-01-21T08:21:23.962Z"
   },
   {
     "id": "protezirovanie-11",
     "title": "Бюгельный протез",
-    "price": 75000,
+    "price": "Цена договорная",
     "oldPrice": null,
-    "note": null,
-    "order": 11,
+    "note": "",
+    "order": 9,
     "active": true,
-    "updatedAt": "2025-08-18T00:00:00.000Z"
+    "updatedAt": "2026-01-21T08:21:24.637Z"
   },
   {
     "id": "868f8de8-ca2e-489b-b6b0-75b92af64574",
     "title": "Протез \"Quadrotti\"",
-    "price": 85000,
+    "price": "Цена договорная",
     "oldPrice": null,
-    "note": null,
+    "note": "",
+    "active": true,
+    "order": 10,
+    "updatedAt": "2026-01-21T08:21:26.070Z"
+  },
+  {
+    "id": "a493231c-1208-4b76-bfda-e7fa89619996",
+    "title": "Полный съемный пластиночный протез",
+    "price": "Цена договорная",
+    "oldPrice": null,
+    "note": "",
+    "active": true,
+    "order": 11,
+    "updatedAt": "2026-01-21T08:21:27.035Z"
+  },
+  {
+    "id": "38d96e5f-0e81-49d2-8b31-1b87dcb52729",
+    "title": "Частичный съемный пластиночный протез",
+    "price": "Цена договорная",
+    "oldPrice": null,
+    "note": "",
     "active": true,
     "order": 12,
-    "updatedAt": "2025-09-15T12:37:43.782Z"
+    "updatedAt": "2026-01-21T08:21:27.840Z"
+  },
+  {
+    "id": "1c1b3db0-c1a8-45fb-9254-75d88745dab0",
+    "title": "Временная коронка прямым методом",
+    "price": 6000,
+    "oldPrice": null,
+    "note": "от",
+    "active": true,
+    "order": 16,
+    "updatedAt": "2026-01-23T09:59:32.742Z"
+  },
+  {
+    "id": "64d9229f-1737-41ef-af0c-14a65cb0cab1",
+    "title": "Перебазировка",
+    "price": 10000,
+    "oldPrice": null,
+    "note": "от",
+    "active": true,
+    "order": 14,
+    "updatedAt": "2026-01-21T08:21:28.454Z"
   }
 ]

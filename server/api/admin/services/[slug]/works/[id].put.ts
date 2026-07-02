@@ -13,8 +13,8 @@ export default defineEventHandler(async (event) => {
   list[i] = {
     ...list[i],
     title: b.title != null ? String(b.title) : list[i].title,
-    price: b.price != null ? Number(b.price) : list[i].price,
-    oldPrice: b.oldPrice === null ? null : (b.oldPrice != null ? Number(b.oldPrice) : list[i].oldPrice),
+    price: b.price != null ? b.price : list[i].price,
+    oldPrice: b.oldPrice === null ? null : (b.oldPrice != null ? b.oldPrice : list[i].oldPrice),
     note: b.note === null ? null : (b.note != null ? String(b.note) : list[i].note),
     active: b.active ?? list[i].active,
     order: Number.isFinite(b.order) ? Number(b.order) : list[i].order,

@@ -1,74 +1,97 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue'
-import { useServices } from '~/composables/useServices'
-import { useSeoMeta } from '~/composables/useSeoMeta'
-import { useJsonLd } from '~/composables/useJsonLd'
+import { computed, reactive, ref } from 'vue';
+import { useServices } from '~/composables/useServices';
+import { useSeoMeta } from '~/composables/useSeoMeta';
+import { useJsonLd } from '~/composables/useJsonLd';
 
 type Work = {
-  id: string; title: string; price: number|null; oldPrice: number|null;
-  note: string|null; order: number; active: boolean
-}
+  id: string;
+  title: string;
+  price: number | null;
+  oldPrice: number | null;
+  note: string | null;
+  order: number;
+  active: boolean;
+};
 
 definePageMeta({
   layout: 'custom-default',
   headerLinks: [
     { label: 'О клинике', href: '/o-klinike' },
-    { label: 'Акции',     href: '/akcii' }, // fix
-    { label: 'Врачи',     href: '/vrachi' },
-    { label: 'Услуги',    href: '/uslugi' },
-    { label: 'Контакты',  href: '#contacts' }
-  ]
-})
+    { label: 'Акции', href: '/akcii' }, // fix
+    { label: 'Врачи', href: '/vrachi' },
+    { label: 'Услуги', href: '/uslugi' },
+    { label: 'Контакты', href: '#contacts' },
+  ],
+});
 
 /* список услуг */
-const { services, pending: loadingServices, error } = useServices()
-const items = computed(() => (services.value || []).filter(s => s.active !== false))
+const { services, pending: loadingServices, error } = useServices();
+const items = computed(() =>
+  (services.value || []).filter((s) => s.active !== false)
+);
 
 /* состояние аккордеона */
-const openSlug = ref<string | null>(null)
+const openSlug = ref<string | null>(null);
 
 /* кэш ленивых загрузок */
-const cache = reactive<Record<string, { loading: boolean; error: string|null; works: Work[] }>>({})
+const cache = reactive<
+  Record<string, { loading: boolean; error: string | null; works: Work[] }>
+>({});
 
-const fmt = (v: number|null) =>
-  v == null ? '—' : new Intl.NumberFormat('ru-RU').format(v) + ' ₽'
+const fmt = (v: unknown) => {
+  if (v == null) return '—';
+  if (typeof v !== 'number') return String(v);
+  if (!Number.isFinite(v)) return String(v);
+  return new Intl.NumberFormat('ru-RU').format(v) + ' ₽';
+};
 
 /* раскрытие без программного скролла страницы */
 async function toggle(slug: string) {
-  const willOpen = openSlug.value !== slug
-  openSlug.value = willOpen ? slug : null
-  if (!willOpen) return
+  const willOpen = openSlug.value !== slug;
+  openSlug.value = willOpen ? slug : null;
+  if (!willOpen) return;
 
-  if (!cache[slug]) cache[slug] = { loading: false, error: null, works: [] }
-  const slot = cache[slug]
-  if (slot.works.length || slot.loading) return
+  if (!cache[slug]) cache[slug] = { loading: false, error: null, works: [] };
+  const slot = cache[slug];
+  if (slot.works.length || slot.loading) return;
 
   try {
-    slot.loading = true; slot.error = null
-    const data = await $fetch<Work[]>(`/api/admin/services/${slug}`)
+    slot.loading = true;
+    slot.error = null;
+    const data = await $fetch<Work[]>(`/api/admin/services/${slug}`);
     slot.works = (data || [])
-      .filter(w => w.active !== false)
+      .filter((w) => w.active !== false)
       .slice()
-      .sort((a,b)=>a.order - b.order)
-  } catch (e:any) {
-    slot.error = e?.data?.message || e?.message || 'Не удалось загрузить позиции'
+      .sort((a, b) => a.order - b.order);
+  } catch (e: any) {
+    slot.error =
+      e?.data?.message || e?.message || 'Не удалось загрузить позиции';
   } finally {
-    slot.loading = false
+    slot.loading = false;
   }
 }
 
 /* ===== SEO ===== */
 useSeoMeta({
-  title: 'Услуги стоматологии — терапия, имплантация, протезирование | Доктор Бронников',
-  description: 'Полный спектр стоматологических услуг: лечение кариеса, эндодонтия, имплантация, протезирование, профилактика и гигиена.',
+  title:
+    'Услуги стоматологии — терапия, имплантация, протезирование | Доктор Бронников',
+  description:
+    'Полный спектр стоматологических услуг: лечение кариеса, эндодонтия, имплантация, протезирование, профилактика и гигиена.',
   path: '/uslugi',
   type: 'website',
-  image: { url: '/images/og/services.jpg', width: 1200, height: 630, alt: 'Стоматологические услуги клиники' }
-})
+  image: {
+    url: '/images/og/services.jpg',
+    width: 1200,
+    height: 630,
+    alt: 'Стоматологические услуги клиники',
+  },
+});
 
 /* ===== JSON-LD ===== */
-const { public: pub } = useRuntimeConfig()
-const siteUrl = (pub?.siteUrl || '').replace(/\/$/, '') || 'https://example.com'
+const { public: pub } = useRuntimeConfig();
+const siteUrl =
+  (pub?.siteUrl || '').replace(/\/$/, '') || 'https://example.com';
 
 // Хлебные крошки
 useJsonLd(() => ({
@@ -76,9 +99,14 @@ useJsonLd(() => ({
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Главная', item: siteUrl + '/' },
-    { '@type': 'ListItem', position: 2, name: 'Услуги',  item: siteUrl + '/uslugi' }
-  ]
-}))
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Услуги',
+      item: siteUrl + '/uslugi',
+    },
+  ],
+}));
 
 // Каталог услуг (разделы-«якоря»)
 useJsonLd(() => ({
@@ -86,51 +114,51 @@ useJsonLd(() => ({
   '@type': 'OfferCatalog',
   name: 'Каталог стоматологических услуг',
   url: siteUrl + '/uslugi',
-  itemListElement: (items.value || []).map((s:any, i:number) => ({
+  itemListElement: (items.value || []).map((s: any, i: number) => ({
     '@type': 'ListItem',
     position: i + 1,
     item: {
       '@type': 'Service',
       name: s.title,
-      url: `${siteUrl}/uslugi#${s.slug}`
-    }
-  }))
-}))
+      url: `${siteUrl}/uslugi#${s.slug}`,
+    },
+  })),
+}));
 
 /* ===== ТРАНЗИШНЫ ДЛЯ АККОРДЕОНА (оставляем плавное открытие) ===== */
 function beforeEnter(el: Element) {
-  const e = el as HTMLElement
-  e.style.height = '0'
-  e.style.opacity = '0'
+  const e = el as HTMLElement;
+  e.style.height = '0';
+  e.style.opacity = '0';
 }
 function enter(el: Element) {
-  const e = el as HTMLElement
-  const h = e.scrollHeight
-  e.style.transition = 'height 260ms ease, opacity 240ms ease'
-  void e.offsetHeight
-  e.style.height = h + 'px'
-  e.style.opacity = '1'
+  const e = el as HTMLElement;
+  const h = e.scrollHeight;
+  e.style.transition = 'height 260ms ease, opacity 240ms ease';
+  void e.offsetHeight;
+  e.style.height = h + 'px';
+  e.style.opacity = '1';
 }
 function afterEnter(el: Element) {
-  const e = el as HTMLElement
-  e.style.height = 'auto'
-  e.style.transition = ''
+  const e = el as HTMLElement;
+  e.style.height = 'auto';
+  e.style.transition = '';
 }
 function beforeLeave(el: Element) {
-  const e = el as HTMLElement
-  e.style.height = e.scrollHeight + 'px'
-  e.style.opacity = '1'
+  const e = el as HTMLElement;
+  e.style.height = e.scrollHeight + 'px';
+  e.style.opacity = '1';
 }
 function leave(el: Element) {
-  const e = el as HTMLElement
-  e.style.transition = 'height 220ms ease, opacity 200ms ease'
-  void e.offsetHeight
-  e.style.height = '0'
-  e.style.opacity = '0'
+  const e = el as HTMLElement;
+  e.style.transition = 'height 220ms ease, opacity 200ms ease';
+  void e.offsetHeight;
+  e.style.height = '0';
+  e.style.opacity = '0';
 }
 function afterLeave(el: Element) {
-  const e = el as HTMLElement
-  e.style.transition = ''
+  const e = el as HTMLElement;
+  e.style.transition = '';
 }
 </script>
 
@@ -139,7 +167,9 @@ function afterLeave(el: Element) {
     <div class="container">
       <h1 class="srv__title">Услуги</h1>
 
-      <div v-if="error" class="alert error">Не удалось загрузить услуги. Попробуйте обновить страницу.</div>
+      <div v-if="error" class="alert error">
+        Не удалось загрузить услуги. Попробуйте обновить страницу.
+      </div>
 
       <div v-else-if="loadingServices" class="stack">
         <div v-for="i in 6" :key="i" class="skeleton"></div>
@@ -162,7 +192,9 @@ function afterLeave(el: Element) {
             @click="toggle(s.slug)"
           >
             <h2 class="card__title">{{ s.title }}</h2>
-            <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 10l5 5 5-5" />
+            </svg>
           </button>
 
           <!-- Плавный переход панели -->
@@ -192,21 +224,28 @@ function afterLeave(el: Element) {
 
                 <ul v-else class="works">
                   <li
-                    v-for="w in (cache[s.slug]?.works || [])"
+                    v-for="w in cache[s.slug]?.works || []"
                     :key="w.id"
                     class="work"
                   >
                     <div class="work__title">
                       {{ w.title }}
-                      <small v-if="w.note" class="work__note"> — {{ w.note }}</small>
+                      <small v-if="w.note" class="work__note">
+                        — {{ w.note }}</small
+                      >
                     </div>
                     <div class="work__price">
-                      <span v-if="w.oldPrice" class="old">{{ fmt(w.oldPrice) }}</span>
+                      <span v-if="w.oldPrice" class="old">{{
+                        fmt(w.oldPrice)
+                      }}</span>
                       <span class="new">{{ fmt(w.price) }}</span>
                     </div>
                   </li>
 
-                  <li v-if="(cache[s.slug]?.works || []).length === 0" class="work muted">
+                  <li
+                    v-if="(cache[s.slug]?.works || []).length === 0"
+                    class="work muted"
+                  >
                     Позиции скоро появятся.
                   </li>
                 </ul>
@@ -230,7 +269,11 @@ function afterLeave(el: Element) {
 
   padding: calc(var(--hdr-off) + 40rem) var(--pad-x) 64rem;
   background:
-    radial-gradient(60% 42% at 50% 0%, rgba(12, 18, 26, 0.55) 0%, rgba(12, 18, 26, 0) 70%),
+    radial-gradient(
+      60% 42% at 50% 0%,
+      rgba(12, 18, 26, 0.55) 0%,
+      rgba(12, 18, 26, 0) 70%
+    ),
     linear-gradient(180deg, #0b0f16 0%, #0e101b 60%, #0e101b 100%);
 }
 
@@ -244,10 +287,12 @@ function afterLeave(el: Element) {
   margin-top: 16rem;
   margin-bottom: 32rem;
   text-align: center;
-  color: #F6FAFF;
-  letter-spacing: .2px;
-  font: 800 clamp(26rem, 5.2vw, 42rem)/1.14 "Montserrat", system-ui;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, .25);
+  color: #f6faff;
+  letter-spacing: 0.2px;
+  font:
+    800 clamp(26rem, 5.2vw, 42rem)/1.14 'Montserrat',
+    system-ui;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 }
 
 /* ===== СПИСОК КАРТОЧЕК */
@@ -261,11 +306,15 @@ function afterLeave(el: Element) {
   border-radius: var(--radius);
   overflow: hidden;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .01)),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(255, 255, 255, 0.01)
+    ),
     radial-gradient(100% 100% at 20% 10%, #dbe9f5 0%, #a8c4de 50%, #8ba7c4 100%);
-  filter: saturate(.9) brightness(.95);
-  box-shadow: 0 10rem 28rem rgba(0, 6, 14, .35);
-  border: 1px solid rgba(255, 255, 255, .12);
+  filter: saturate(0.9) brightness(0.95);
+  box-shadow: 0 10rem 28rem rgba(0, 6, 14, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 /* ===== ЗАГОЛОВОК КАРТОЧКИ */
@@ -286,11 +335,13 @@ function afterLeave(el: Element) {
 .card__title {
   margin: 0;
   color: #07131f;
-  font: 800 clamp(18rem, 3.2vw, 28rem)/1.2 "Montserrat";
+  font: 800 clamp(18rem, 3.2vw, 28rem)/1.2 'Montserrat';
   text-shadow: none;
 }
 
-.card.open .card__title { color: #06101b; }
+.card.open .card__title {
+  color: #06101b;
+}
 
 .chev {
   width: 26rem;
@@ -299,14 +350,23 @@ function afterLeave(el: Element) {
   fill: none;
   stroke: #0b2236;
   stroke-width: 2;
-  opacity: .85;
-  transition: transform .24s ease, opacity .2s;
+  opacity: 0.85;
+  transition:
+    transform 0.24s ease,
+    opacity 0.2s;
 }
-.card.open .chev { transform: rotate(180deg); opacity: .95; }
+.card.open .chev {
+  transform: rotate(180deg);
+  opacity: 0.95;
+}
 
 /* ===== ПАНЕЛЬ (анимация) */
 .card__panel {
-  background: linear-gradient(180deg, rgba(0, 0, 0, .06), rgba(0, 0, 0, 0) 40%);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.06),
+    rgba(0, 0, 0, 0) 40%
+  );
   will-change: height, opacity;
 }
 .panel__inner {
@@ -314,8 +374,14 @@ function afterLeave(el: Element) {
   animation: panelFadeIn 260ms ease both;
 }
 @keyframes panelFadeIn {
-  from { transform: translateY(-4px); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+  from {
+    transform: translateY(-4px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* ===== ПОЗИЦИИ УСЛУГ */
@@ -335,15 +401,21 @@ function afterLeave(el: Element) {
   gap: 14rem;
   padding: 14rem 16rem;
   border-radius: 14rem;
-  background: rgba(255, 255, 255, .16);
-  border: 1px solid rgba(255, 255, 255, .24);
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.24);
   color: #0b2236;
   backdrop-filter: blur(2px);
 }
-.work.muted { opacity: .8; }
+.work.muted {
+  opacity: 0.8;
+}
 
-.work__title { font: 600 clamp(14rem, 2.2vw, 18rem)/1.35 "Montserrat"; }
-.work__note  { opacity: .8; }
+.work__title {
+  font: 600 clamp(14rem, 2.2vw, 18rem)/1.35 'Montserrat';
+}
+.work__note {
+  opacity: 0.8;
+}
 
 .work__price {
   display: flex;
@@ -354,15 +426,15 @@ function afterLeave(el: Element) {
 .work__price .old {
   color: #334b63;
   text-decoration: line-through;
-  opacity: .7;
+  opacity: 0.7;
   font-weight: 600;
 }
 .work__price .new {
-  font: 800 clamp(14rem, 2.6vw, 18rem)/1 "Montserrat";
+  font: 800 clamp(14rem, 2.6vw, 18rem)/1 'Montserrat';
   padding: 6rem 10rem;
   border-radius: 999rem;
-  background: rgba(255, 255, 255, .22);
-  border: 1px solid rgba(255, 255, 255, .32);
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.32);
   color: #07131f;
 }
 
@@ -376,53 +448,98 @@ function afterLeave(el: Element) {
 .spinner {
   width: 16rem;
   height: 16rem;
-  border: 2px solid rgba(11, 34, 54, .25);
-  border-top-color: rgba(11, 34, 54, .8);
+  border: 2px solid rgba(11, 34, 54, 0.25);
+  border-top-color: rgba(11, 34, 54, 0.8);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 .alert {
   padding: 12rem 14rem;
   border-radius: 12rem;
 }
 .alert.error {
-  background: #FFDEE0;
-  color: #5A0C17;
+  background: #ffdee0;
+  color: #5a0c17;
 }
 
 /* ===== СКЕЛЕТОНЫ */
-.stack { display: flex; flex-direction: column; gap: 12rem; }
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12rem;
+}
 .skeleton {
   height: 96rem;
   border-radius: var(--radius);
-  background: linear-gradient(90deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .12), rgba(255, 255, 255, .06));
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.06)
+  );
   animation: sk 1.1s infinite linear;
 }
-@keyframes sk { 0% { background-position: 0 0; } 100% { background-position: 420px 0; } }
+@keyframes sk {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 420px 0;
+  }
+}
 
 /* ===== АДАПТИВ + reduce-motion */
 @media (max-width: 900px) {
-  .srv { padding: calc(var(--hdr-off) + 24rem) 14rem 56rem; }
+  .srv {
+    padding: calc(var(--hdr-off) + 24rem) 14rem 56rem;
+  }
 }
 @media (max-width: 640px) {
-  .card__head { min-height: 72rem; padding: 18rem var(--pad-x); }
-  .panel__inner { padding: 8rem var(--pad-x) var(--pad-y); }
-  .work { grid-template-columns: 1fr; align-items: start; }
-  .work__price { justify-content: flex-start; }
+  .card__head {
+    min-height: 72rem;
+    padding: 18rem var(--pad-x);
+  }
+  .panel__inner {
+    padding: 8rem var(--pad-x) var(--pad-y);
+  }
+  .work {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  .work__price {
+    justify-content: flex-start;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .chev { transition: none; }
-  .panel__inner { animation: none !important; }
+  .chev {
+    transition: none;
+  }
+  .panel__inner {
+    animation: none !important;
+  }
 }
 
 /* scroll anchoring: не тянем вьюпорт при изменении высоты панели */
-.srv, .list, .card, .panel__inner { overflow-anchor: auto; }
-.card__panel { overflow-anchor: none; }
+.srv,
+.list,
+.card,
+.panel__inner {
+  overflow-anchor: auto;
+}
+.card__panel {
+  overflow-anchor: none;
+}
 
 /* отключаем возможный глобальный smooth-scroll только на этой странице */
-:global(html){ scroll-behavior: auto; }
+:global(html) {
+  scroll-behavior: auto;
+}
 
 /* убираем экспериментальные хаки, которые могли вызывать скачок */
 .card__panel {

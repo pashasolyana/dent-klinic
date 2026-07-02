@@ -2,41 +2,51 @@
   {
     "id": "implantaciya-01",
     "title": "Имплантат «Straumann» (Швейцария) — хирургический этап",
-    "price": 65000,
+    "price": "Цена договорная",
     "oldPrice": null,
-    "note": null,
+    "note": "",
     "order": 1,
     "active": true,
-    "updatedAt": "2025-08-18T00:00:00.000Z"
+    "updatedAt": "2026-01-21T08:25:04.796Z"
   },
   {
     "id": "implantaciya-04",
     "title": "Имплантат «AnyRidge» (Корея) — хирургический этап",
-    "price": 59000,
+    "price": "Цена договорная",
     "oldPrice": null,
-    "note": null,
+    "note": "",
     "order": 4,
     "active": true,
-    "updatedAt": "2025-08-18T00:00:00.000Z"
+    "updatedAt": "2026-01-21T08:25:05.960Z"
   },
   {
     "id": "implantaciya-05",
     "title": "Имплантат «AnyOne» (Корея) — хирургический этап",
-    "price": 47000,
+    "price": "Цена договорная",
     "oldPrice": null,
-    "note": null,
+    "note": "",
     "order": 5,
     "active": true,
-    "updatedAt": "2025-08-18T00:00:00.000Z"
+    "updatedAt": "2026-01-21T08:25:06.904Z"
   },
   {
     "id": "implantaciya-07",
     "title": "Имплантат «Osstem» (Корея) — хирургический этап",
-    "price": 39000,
+    "price": "Цена договорная",
     "oldPrice": null,
-    "note": null,
+    "note": "",
     "order": 7,
     "active": true,
-    "updatedAt": "2025-08-18T00:00:00.000Z"
+    "updatedAt": "2026-01-21T08:25:07.804Z"
+  },
+  {
+    "id": "b16e1cd8-95c3-4305-ba29-df0f0955744b",
+    "title": "Хирургический шаблон+сканирование",
+    "price": 10000,
+    "oldPrice": null,
+    "note": "от",
+    "active": true,
+    "order": 8,
+    "updatedAt": "2026-01-21T08:25:08.595Z"
   }
 ]
