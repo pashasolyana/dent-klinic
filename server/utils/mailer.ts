@@ -49,7 +49,7 @@ export async function sendMail(input: SendMailInput) {
 
   const message = {
     from: mail.from || mail.user,
-    to: 'skdoctorabronnikova@gmail.com',
+    to: 'bronnikovstom@yandex.ru',
     subject: input.subject,
     html: input.html,
     text: input.text,
